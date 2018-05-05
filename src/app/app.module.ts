@@ -1,18 +1,34 @@
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
+import { DashboardComponent } from './component/dashboard/dashboard.component';
+import { ROUTES } from './app.routes';
+import { AuthService } from './services/auth/auth.service';
+import { AuthGuardService } from './services/auth/auth-guard.service';
+import { RoleGuardService } from './services/auth/role-guard.service';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DashboardComponent,
   ],
   imports: [
-    BrowserModule
+    BrowserAnimationsModule,
+    BrowserModule,
+    RouterModule.forRoot(
+      ROUTES,
+      { enableTracing: true } // <-- debugging purposes only
+    ),
   ],
-  providers: [],
+  providers: [
+    AuthGuardService,
+    AuthService,
+    RoleGuardService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
